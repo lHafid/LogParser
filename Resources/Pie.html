@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js" ></script>
+    <title>Document</title>
+   
+</head>
+<body>
+    <div>
+        <canvas id="myChart" style="position: relative; height:40vh; width:80vw"></canvas>
+    </div>
+    
+<script>
+    
+    $4d.Web_get_Graph("pie", function(data)
+{
+    const ctx = document.getElementById('myChart').getContext('2d');
+    ctx.canvas.parentNode.style.width = "650px";
+    ctx.canvas.parentNode.style.height = "500px";
+    const myChart = new Chart(ctx, data);
+});
+
+</script>
+</body>
+</html>

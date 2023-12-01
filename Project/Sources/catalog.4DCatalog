@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
+<base name="4D logParser" uuid="24D7C1C40E394294AF1E2740D9615C35" collation_locale="en">
+	<schema name="DEFAULT_SCHEMA"/>
+	<table name="Process" uuid="D624FCDB8F5C43CC83924357CF0B0BEC" id="1">
+		<field name="UUID" uuid="FA4C802D36384A43B2DDD9AF6B98711E" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="UUID_Process_Group" uuid="201D809F3DF3466FB2C7E0B714F24B15" type="10" store_as_UUID="true" id="2"/>
+		<field name="index" uuid="CEAB205123714E7791382E518AD39C59" type="5" id="3"/>
+		<field name="sequence" uuid="9345357F7251467E9FDCEB7C4A2B1A3F" type="5" id="4"/>
+		<field name="date" uuid="D839F53A65BC4A1A983C5C02C5022EB7" type="8" id="5"/>
+		<field name="time" uuid="68BDF67EA4D7485EAC20331BF141C0CC" type="9" id="6"/>
+		<field name="serverProcessID" uuid="2C03876ABD524A78B09E84842FCA4BAB" type="5" id="7"/>
+		<field name="remoteProcessID" uuid="BC5817386FF440A4AADA0FED7F32F688" type="5" id="8"/>
+		<field name="UUID_Host" uuid="ECD17511C5EB4F15B53F76F0C03020A4" type="10" store_as_UUID="true" id="9"/>
+		<field name="UUID_User" uuid="23DCF6B10F1144DABCDA792DB0D2E8FC" type="10" store_as_UUID="true" id="10"/>
+		<primary_key field_name="UUID" field_uuid="FA4C802D36384A43B2DDD9AF6B98711E"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="11">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="413.06567382812" top="0" width="214.94058227539" height="275.68533325195"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<table name="Process_Group" uuid="AE077AF177874DFFBBF530EC69CE1AD5" id="2">
+		<field name="UUID" uuid="0CDB4CFFD7FE4606A7997E35CF68C23A" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="name" uuid="E88241DE277240BF86C8B8FECB0A2E5A" type="10" limiting_length="255" id="2"/>
+		<primary_key field_name="UUID" field_uuid="0CDB4CFFD7FE4606A7997E35CF68C23A"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="5">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="36.435287475586" top="104.1884765625" width="163.38508605957" height="161.38720703125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<table name="Request" uuid="16CAB1A92735475DB451A47D8E1B7D2F" id="3">
+		<field name="UUID" uuid="51FDC2749FD64E76B75C06ACBC6458C9" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="sequence" uuid="22CF551DF2614207B573D43EF28E2B98" type="5" id="2"/>
+		<field name="date" uuid="6EAB5DA1723D44349FEADBFCB50B436C" type="8" id="3"/>
+		<field name="time" uuid="B3B4E6DE8D634FC38DE7B275B2606843" type="9" id="4"/>
+		<field name="UUID_Component" uuid="2FEE33B071524466826F370FC56F78CA" type="10" store_as_UUID="true" id="5"/>
+		<field name="UUID_Process" uuid="4D59D27D1CAE4C24AFEC28B49B57DB59" type="10" store_as_UUID="true" id="6"/>
+		<field name="request" uuid="05345BF9C4A64B1581F7725002FF3874" type="5" id="7"/>
+		<field name="bytes_out" uuid="C9DA297713CC4EBE8858BE731786198B" type="5" id="8"/>
+		<field name="bytes_in" uuid="3480CDCCD29B478D9C67E26B17D848AF" type="5" id="9"/>
+		<field name="exec_duration" uuid="CB3D1EFCB600463D9657BBAF4F0E3C73" type="5" id="10"/>
+		<field name="write_duration" uuid="AC97E5EA0F4E497880C92384041BEB25" type="5" id="11"/>
+		<field name="stmp" uuid="928D3FFE9D91463B82DC76C7ED320803" type="4" id="12"/>
+		<primary_key field_name="UUID" field_uuid="51FDC2749FD64E76B75C06ACBC6458C9"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="12">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="844.40692138672" top="0" width="211.32476806641" height="313.48648071289"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<table name="Host" uuid="B181BD6EA81E4676856F5C721B3BA848" id="4">
+		<field name="UUID" uuid="97B1713340384C0B863DCF5644237B6C" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="name" uuid="D7B1922DFCC449C0B2D5C85EBC4E52A6" type="10" limiting_length="255" id="2"/>
+		<primary_key field_name="UUID" field_uuid="97B1713340384C0B863DCF5644237B6C"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="6">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="144.20602416992" top="410.64877319336" width="120" height="167.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<table name="User" uuid="0982E65F89384C3297821A9BA9ECDE66" id="5">
+		<field name="UUID" uuid="D4D9324E1ADA49E692A06B3AAA563DB8" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="name" uuid="4DFB0190F01D40428AAF75DA7FB3A626" type="10" limiting_length="255" id="2"/>
+		<primary_key field_name="UUID" field_uuid="D4D9324E1ADA49E692A06B3AAA563DB8"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="6">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="722.18304443359" top="429.31816101074" width="120" height="167.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<table name="Component" uuid="E8C16018E1F24514A464EF82C8B6AD35" id="6">
+		<field name="UUID" uuid="CF006ADE37E745D495FCD11061C86D10" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="name" uuid="DFFAAEC0E35546E5BD47FA97A0DAE421" type="10" limiting_length="255" id="2"/>
+		<primary_key field_name="UUID" field_uuid="CF006ADE37E745D495FCD11061C86D10"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="6">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="1143.5059204101" top="298.20433044433" width="120" height="167.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<relation uuid="A798EA0EC1594A728923B675AFD88422" name_Nto1="group" name_1toN="processes" auto_load_Nto1="false" auto_load_1toN="false" foreign_key="false" state="1">
+		<related_field kind="source">
+			<field_ref uuid="201D809F3DF3466FB2C7E0B714F24B15" name="UUID_Process_Group">
+				<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="0CDB4CFFD7FE4606A7997E35CF68C23A" name="UUID">
+				<table_ref uuid="AE077AF177874DFFBBF530EC69CE1AD5" name="Process_Group"/>
+			</field_ref>
+		</related_field>
+		<relation_extra entry_wildchar="false" entry_create="false" choice_field="0" entry_autofill="false">
+			<editor_relation_info via_point_x="-1" via_point_y="-1" prefers_left="true" smartlink="true">
+				<color red="255" green="255" blue="255" alpha="0"/>
+			</editor_relation_info>
+		</relation_extra>
+	</relation>
+	<relation uuid="36337268E2D7421B8653C8A065F790D0" name_Nto1="host" name_1toN="processes" auto_load_Nto1="false" auto_load_1toN="false" foreign_key="false" state="1">
+		<related_field kind="source">
+			<field_ref uuid="ECD17511C5EB4F15B53F76F0C03020A4" name="UUID_Host">
+				<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="97B1713340384C0B863DCF5644237B6C" name="UUID">
+				<table_ref uuid="B181BD6EA81E4676856F5C721B3BA848" name="Host"/>
+			</field_ref>
+		</related_field>
+		<relation_extra entry_wildchar="false" entry_create="false" choice_field="0" entry_autofill="false">
+			<editor_relation_info via_point_x="-1" via_point_y="-1" prefers_left="true" smartlink="true">
+				<color red="255" green="255" blue="255" alpha="0"/>
+			</editor_relation_info>
+		</relation_extra>
+	</relation>
+	<relation uuid="512F9FD4A2F04746B0E30E70BB9AC2F4" name_Nto1="user" name_1toN="processes" auto_load_Nto1="false" auto_load_1toN="false" foreign_key="false" state="1">
+		<related_field kind="source">
+			<field_ref uuid="23DCF6B10F1144DABCDA792DB0D2E8FC" name="UUID_User">
+				<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="D4D9324E1ADA49E692A06B3AAA563DB8" name="UUID">
+				<table_ref uuid="0982E65F89384C3297821A9BA9ECDE66" name="User"/>
+			</field_ref>
+		</related_field>
+		<relation_extra entry_wildchar="false" entry_create="false" choice_field="0" entry_autofill="false">
+			<editor_relation_info via_point_x="-1" via_point_y="-1" prefers_left="false" smartlink="true">
+				<color red="255" green="255" blue="255" alpha="0"/>
+			</editor_relation_info>
+		</relation_extra>
+	</relation>
+	<relation uuid="25424F2366A64568BFB1DFACF366078D" name_Nto1="component" name_1toN="requests" auto_load_Nto1="false" auto_load_1toN="false" foreign_key="false" state="1">
+		<related_field kind="source">
+			<field_ref uuid="2FEE33B071524466826F370FC56F78CA" name="UUID_Component">
+				<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="CF006ADE37E745D495FCD11061C86D10" name="UUID">
+				<table_ref uuid="E8C16018E1F24514A464EF82C8B6AD35" name="Component"/>
+			</field_ref>
+		</related_field>
+		<relation_extra entry_wildchar="false" entry_create="false" choice_field="0" entry_autofill="false">
+			<editor_relation_info via_point_x="-1" via_point_y="-1" prefers_left="false" smartlink="true">
+				<color red="255" green="255" blue="255" alpha="0"/>
+			</editor_relation_info>
+		</relation_extra>
+	</relation>
+	<relation uuid="8A25D6EA28F948C4898B08F4B0D09553" name_Nto1="process" name_1toN="requests" auto_load_Nto1="false" auto_load_1toN="false" foreign_key="false" state="1">
+		<related_field kind="source">
+			<field_ref uuid="4D59D27D1CAE4C24AFEC28B49B57DB59" name="UUID_Process">
+				<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="FA4C802D36384A43B2DDD9AF6B98711E" name="UUID">
+				<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+			</field_ref>
+		</related_field>
+		<relation_extra entry_wildchar="false" entry_create="false" choice_field="0" entry_autofill="false">
+			<editor_relation_info via_point_x="-1" via_point_y="-1" prefers_left="true" smartlink="true">
+				<color red="255" green="255" blue="255" alpha="0"/>
+			</editor_relation_info>
+		</relation_extra>
+	</relation>
+	<index kind="regular" uuid="1A9A10DC86214084BF8145519B286A50" type="1">
+		<field_ref uuid="CEAB205123714E7791382E518AD39C59" name="index">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="1FB43BDEB41943DFBB5FE14F5870669F" type="1">
+		<field_ref uuid="CF006ADE37E745D495FCD11061C86D10" name="UUID">
+			<table_ref uuid="E8C16018E1F24514A464EF82C8B6AD35" name="Component"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="22C432797B2F45C89BBAA2D57E9CF113" type="1">
+		<field_ref uuid="FA4C802D36384A43B2DDD9AF6B98711E" name="UUID">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="2E2B662E978F4624BCEED95CC819D355" type="3">
+		<field_ref uuid="928D3FFE9D91463B82DC76C7ED320803" name="stmp">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="39B9D4203E334E8BBCF004297A7E4988" type="1">
+		<field_ref uuid="51FDC2749FD64E76B75C06ACBC6458C9" name="UUID">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="489E338F0D7E4BB88DC5D411F9CAC5FF" type="1">
+		<field_ref uuid="0CDB4CFFD7FE4606A7997E35CF68C23A" name="UUID">
+			<table_ref uuid="AE077AF177874DFFBBF530EC69CE1AD5" name="Process_Group"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="573A40C3A78B4759A674BBDFBD86817B" type="3">
+		<field_ref uuid="B3B4E6DE8D634FC38DE7B275B2606843" name="time">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" name="toOrder" uuid="5F945E8A1FEF4D99B3DADD6C4E9E66A5" type="1">
+		<field_ref uuid="6EAB5DA1723D44349FEADBFCB50B436C" name="date">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+		<field_ref uuid="B3B4E6DE8D634FC38DE7B275B2606843" name="time">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="68D67C1C2DB746AF885C984EE0E7B69C" type="1">
+		<field_ref uuid="97B1713340384C0B863DCF5644237B6C" name="UUID">
+			<table_ref uuid="B181BD6EA81E4676856F5C721B3BA848" name="Host"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="6BDFB4113F734910B74C09D5814C7027" type="1">
+		<field_ref uuid="05345BF9C4A64B1581F7725002FF3874" name="request">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="73298A36674144AC968AD439D50A9C56" type="1">
+		<field_ref uuid="3480CDCCD29B478D9C67E26B17D848AF" name="bytes_in">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="82991675D3D249CE947FF8CDF68E01F1" type="1">
+		<field_ref uuid="D4D9324E1ADA49E692A06B3AAA563DB8" name="UUID">
+			<table_ref uuid="0982E65F89384C3297821A9BA9ECDE66" name="User"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="8B22E191F7FE49D59E84D81AF313BDC9" type="3">
+		<field_ref uuid="68BDF67EA4D7485EAC20331BF141C0CC" name="time">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="9E142894AFA5475CA947976E253ED4DC" type="1">
+		<field_ref uuid="C9DA297713CC4EBE8858BE731786198B" name="bytes_out">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="A059190468854AEFBBDA9D0D31C18AE1" type="3">
+		<field_ref uuid="4D59D27D1CAE4C24AFEC28B49B57DB59" name="UUID_Process">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="A35998F8BF0545A092B9872DE89D82AE" type="3">
+		<field_ref uuid="201D809F3DF3466FB2C7E0B714F24B15" name="UUID_Process_Group">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="A51161A8B2D24A7789ABAB79CC10EA8B" type="3">
+		<field_ref uuid="2FEE33B071524466826F370FC56F78CA" name="UUID_Component">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="B9ADE8ADF0FF45E7AC2CE9063920E534" type="1">
+		<field_ref uuid="E88241DE277240BF86C8B8FECB0A2E5A" name="name">
+			<table_ref uuid="AE077AF177874DFFBBF530EC69CE1AD5" name="Process_Group"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="D4252518133A413AA8E430931B823FD8" type="3">
+		<field_ref uuid="ECD17511C5EB4F15B53F76F0C03020A4" name="UUID_Host">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="F8566C3616B740D390083E7E5821BCCF" type="3">
+		<field_ref uuid="23DCF6B10F1144DABCDA792DB0D2E8FC" name="UUID_User">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
+	<base_extra>
+		<journal_file journal_file_enabled="true"/>
+	</base_extra>
+</base>

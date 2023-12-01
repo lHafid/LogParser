@@ -1,0 +1,807 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onPageChange",
+		"onValidate",
+		"onClick",
+		"onDoubleClick",
+		"onOutsideCall",
+		"onBeginDragOver",
+		"onDragOver",
+		"onDrop",
+		"onAfterKeystroke",
+		"onMenuSelect",
+		"onPluginArea",
+		"onAfterEdit",
+		"onTimer",
+		"onBoundVariableChange"
+	],
+	"windowTitle": "window title",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {
+				"Input14": {
+					"type": "input",
+					"left": 17,
+					"top": 11,
+					"width": 173,
+					"height": 17,
+					"dataSource": "Form:C1466.terminals.first.date",
+					"dataSourceTypeHint": "date",
+					"dateFormat": "systemShort"
+				},
+				"Input15": {
+					"type": "input",
+					"left": 17,
+					"top": 34,
+					"width": 173,
+					"height": 17,
+					"dataSource": "Time:C179(Form:C1466.terminals.first.time)",
+					"dataSourceTypeHint": "time"
+				},
+				"Input16": {
+					"type": "input",
+					"left": 248,
+					"top": 10,
+					"width": 173,
+					"height": 17,
+					"dataSource": "Form:C1466.terminals.last.date",
+					"dataSourceTypeHint": "date",
+					"dateFormat": "systemShort"
+				},
+				"Input17": {
+					"type": "input",
+					"left": 248,
+					"top": 33,
+					"width": 173,
+					"height": 17,
+					"dataSource": "Time:C179(Form:C1466.terminals.last.time)",
+					"dataSourceTypeHint": "time"
+				},
+				"Text10": {
+					"type": "text",
+					"text": "---->",
+					"top": 11,
+					"left": 201,
+					"width": 66,
+					"height": 16
+				},
+				"Text11": {
+					"type": "text",
+					"text": "---->",
+					"top": 34,
+					"left": 201,
+					"width": 66,
+					"height": 16
+				},
+				"lb_menu": {
+					"type": "listbox",
+					"left": 17,
+					"top": 71,
+					"width": 331,
+					"height": 173,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"selectionMode": "single",
+					"showHeaders": false,
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.menus",
+					"focusable": false,
+					"sortable": false,
+					"currentItemSource": "Form:C1466.menu",
+					"horizontalLineStroke": "transparent",
+					"verticalLineStroke": "transparent",
+					"fill": "#F2F2F2",
+					"alternateFill": "#FFFFFF",
+					"rowHeight": "2em",
+					"fontWeight": "bold",
+					"verticalAlign": "middle",
+					"scrollbarHorizontal": "hidden",
+					"scrollbarVertical": "hidden",
+					"hideSystemHighlight": false,
+					"method": "ObjectMethods/lb_menu.4dm",
+					"columns": [
+						{
+							"header": {
+								"text": "Header1",
+								"name": "Header1"
+							},
+							"name": "Column1",
+							"footer": {
+								"name": "Footer1"
+							},
+							"width": 330,
+							"dataSource": "This:C1470.label"
+						}
+					]
+				},
+				"graph_": {
+					"type": "webArea",
+					"left": 437,
+					"top": 258,
+					"width": 1145,
+					"height": 684,
+					"dataSource": "Form:C1466.graph_",
+					"webEngine": "embedded",
+					"methodsAccessibility": "all",
+					"events": [],
+					"sizingX": "grow",
+					"sizingY": "grow",
+					"borderStyle": "none",
+					"method": "ObjectMethods/graph_.4dm"
+				},
+				"Button": {
+					"type": "button",
+					"text": "Graphs",
+					"top": 258,
+					"left": 367,
+					"width": 68,
+					"height": 21,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/Button.4dm"
+				},
+				"Text": {
+					"type": "text",
+					"text": "Duration(min)",
+					"top": 74,
+					"left": 398,
+					"width": 105,
+					"height": 16
+				},
+				"Input": {
+					"type": "input",
+					"left": 488,
+					"top": 74,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.durationMin.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text1": {
+					"type": "text",
+					"text": "Duration(sec)",
+					"top": 95,
+					"left": 398,
+					"width": 105,
+					"height": 16
+				},
+				"Input1": {
+					"type": "input",
+					"left": 488,
+					"top": 95,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.durationSec.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text2": {
+					"type": "text",
+					"text": "Total req",
+					"top": 131,
+					"left": 398,
+					"width": 105,
+					"height": 16
+				},
+				"Input2": {
+					"type": "input",
+					"left": 488,
+					"top": 131,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.totalReq.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text3": {
+					"type": "text",
+					"text": "Req/min",
+					"top": 152,
+					"left": 398,
+					"width": 105,
+					"height": 16
+				},
+				"Input3": {
+					"type": "input",
+					"left": 488,
+					"top": 152,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.reqPerMin.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text4": {
+					"type": "text",
+					"text": "Req/sec",
+					"top": 172,
+					"left": 398,
+					"width": 105,
+					"height": 16
+				},
+				"Input4": {
+					"type": "input",
+					"left": 488,
+					"top": 172,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.reqPerSec.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text5": {
+					"type": "text",
+					"text": "Bytes total",
+					"top": 71,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input5": {
+					"type": "input",
+					"left": 763,
+					"top": 71,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.totalBytes.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text6": {
+					"type": "text",
+					"text": "Bytes In",
+					"top": 90,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input6": {
+					"type": "input",
+					"left": 763,
+					"top": 90,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.bytesIn.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text7": {
+					"type": "text",
+					"text": "Bytes Out",
+					"top": 109,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input7": {
+					"type": "input",
+					"left": 763,
+					"top": 109,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.byetsOut.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text8": {
+					"type": "text",
+					"text": "Bytes/min",
+					"top": 132,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input8": {
+					"type": "input",
+					"left": 763,
+					"top": 132,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.byetsPerMin.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text9": {
+					"type": "text",
+					"text": "Bytes/sec",
+					"top": 151,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input9": {
+					"type": "input",
+					"left": 763,
+					"top": 151,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.byetsPerSec.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text12": {
+					"type": "text",
+					"text": "Bytes Out/min",
+					"top": 170,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input10": {
+					"type": "input",
+					"left": 763,
+					"top": 170,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.bytesOutPerMin.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text13": {
+					"type": "text",
+					"text": "Bytes Out/sec",
+					"top": 189,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input11": {
+					"type": "input",
+					"left": 763,
+					"top": 189,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.bytesOutPerSec.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text14": {
+					"type": "text",
+					"text": "Bytes In/min",
+					"top": 208,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input12": {
+					"type": "input",
+					"left": 763,
+					"top": 208,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.bytesInPerMin.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text15": {
+					"type": "text",
+					"text": "Bytes In/sec",
+					"top": 227,
+					"left": 673,
+					"width": 105,
+					"height": 16
+				},
+				"Input13": {
+					"type": "input",
+					"left": 763,
+					"top": 227,
+					"width": 176,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.bytesInPerSec.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ### ###"
+				},
+				"Text16": {
+					"type": "text",
+					"text": "Processes total",
+					"top": 74,
+					"left": 969,
+					"width": 105,
+					"height": 16
+				},
+				"Input18": {
+					"type": "input",
+					"left": 1068,
+					"top": 74,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.totalProcesses.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text17": {
+					"type": "text",
+					"text": "Processes/sec",
+					"top": 95,
+					"left": 969,
+					"width": 105,
+					"height": 16
+				},
+				"Input19": {
+					"type": "input",
+					"left": 1068,
+					"top": 95,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.processesPerSec.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text18": {
+					"type": "text",
+					"text": "Processes/min",
+					"top": 116,
+					"left": 969,
+					"width": 105,
+					"height": 16
+				},
+				"Input20": {
+					"type": "input",
+					"left": 1068,
+					"top": 116,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.processesPerMin.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text19": {
+					"type": "text",
+					"text": "Uers total",
+					"top": 147,
+					"left": 969,
+					"width": 105,
+					"height": 16
+				},
+				"Input21": {
+					"type": "input",
+					"left": 1068,
+					"top": 147,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.totalUsers.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text20": {
+					"type": "text",
+					"text": "Users/sec",
+					"top": 168,
+					"left": 969,
+					"width": 105,
+					"height": 16
+				},
+				"Input22": {
+					"type": "input",
+					"left": 1068,
+					"top": 168,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.usersPerSec.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text21": {
+					"type": "text",
+					"text": "Users/min",
+					"top": 189,
+					"left": 969,
+					"width": 105,
+					"height": 16
+				},
+				"Input23": {
+					"type": "input",
+					"left": 1068,
+					"top": 189,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.usersPerMin.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Line": {
+					"type": "line",
+					"top": 74,
+					"left": 658,
+					"width": 1,
+					"height": 170
+				},
+				"Line1": {
+					"type": "line",
+					"top": 74,
+					"left": 954,
+					"width": 1,
+					"height": 170
+				},
+				"Line2": {
+					"type": "line",
+					"top": 74,
+					"left": 1250,
+					"width": 1,
+					"height": 170
+				},
+				"Line3": {
+					"type": "line",
+					"top": 71,
+					"left": 362,
+					"width": 1,
+					"height": 876
+				},
+				"Line4": {
+					"type": "line",
+					"top": 244,
+					"left": 362,
+					"width": 1228,
+					"height": 1,
+					"startPoint": "bottomLeft"
+				},
+				"Text22": {
+					"type": "text",
+					"text": "Hosts total",
+					"top": 74,
+					"left": 1269,
+					"width": 105,
+					"height": 16
+				},
+				"Input24": {
+					"type": "input",
+					"left": 1368,
+					"top": 74,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.totalHosts.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text23": {
+					"type": "text",
+					"text": "Hosts/sec",
+					"top": 95,
+					"left": 1269,
+					"width": 105,
+					"height": 16
+				},
+				"Input25": {
+					"type": "input",
+					"left": 1368,
+					"top": 95,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.hostsPerSec.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				},
+				"Text24": {
+					"type": "text",
+					"text": "Hosts/min",
+					"top": 116,
+					"left": 1269,
+					"width": 105,
+					"height": 16
+				},
+				"Input26": {
+					"type": "input",
+					"left": 1368,
+					"top": 116,
+					"width": 156,
+					"height": 17,
+					"dataSource": "Form:C1466.metrics.hostsPerMin.value",
+					"dataSourceTypeHint": "number",
+					"numberFormat": "### ### ### ###"
+				}
+			}
+		},
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"lb_group": {
+					"type": "listbox",
+					"left": 17,
+					"top": 264,
+					"width": 331,
+					"height": 683,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.groups",
+					"currentItemSource": "Form:C1466.group",
+					"sizingX": "fixed",
+					"sizingY": "grow",
+					"focusable": false,
+					"showFooters": false,
+					"method": "ObjectMethods/lb_group.4dm",
+					"verticalLineStroke": "transparent",
+					"horizontalLineStroke": "transparent",
+					"alternateFill": "#F0F0F0",
+					"selectedItemsSource": "Form:C1466.groups_selected",
+					"columns": [
+						{
+							"header": {
+								"text": "Group",
+								"name": "Header4"
+							},
+							"name": "Column4",
+							"footer": {
+								"name": "Footer4",
+								"dataSource": "",
+								"variableCalculation": "sum",
+								"dataSourceTypeHint": "number"
+							},
+							"width": 202,
+							"dataSource": "This:C1470.name"
+						},
+						{
+							"header": {
+								"name": "Header5",
+								"text": "Nbr req"
+							},
+							"name": "Column5",
+							"footer": {
+								"name": "Footer5"
+							},
+							"dataSource": "This:C1470.processes.requests.length",
+							"width": 112,
+							"dataSourceTypeHint": "number",
+							"numberFormat": "### ### ### ###"
+						}
+					]
+				}
+			}
+		},
+		{
+			"objects": {
+				"lb_group1": {
+					"type": "listbox",
+					"left": 17,
+					"top": 264,
+					"width": 331,
+					"height": 683,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.users",
+					"currentItemSource": "Form:C1466.user",
+					"sizingX": "fixed",
+					"sizingY": "grow",
+					"focusable": false,
+					"showFooters": false,
+					"method": "ObjectMethods/lb_group1.4dm",
+					"verticalLineStroke": "transparent",
+					"horizontalLineStroke": "transparent",
+					"alternateFill": "#F0F0F0",
+					"selectedItemsSource": "Form:C1466.users_selected",
+					"columns": [
+						{
+							"header": {
+								"text": "User",
+								"name": "Header2"
+							},
+							"name": "Column2",
+							"footer": {
+								"name": "Footer2",
+								"dataSource": "",
+								"variableCalculation": "sum",
+								"dataSourceTypeHint": "number"
+							},
+							"width": 202,
+							"dataSource": "This:C1470.name"
+						},
+						{
+							"header": {
+								"name": "Header3",
+								"text": "Nbr req"
+							},
+							"name": "Column3",
+							"footer": {
+								"name": "Footer3"
+							},
+							"dataSource": "This:C1470.processes.requests.length",
+							"width": 112,
+							"dataSourceTypeHint": "number",
+							"numberFormat": "### ### ### ###"
+						}
+					]
+				}
+			}
+		},
+		{
+			"objects": {
+				"lb_group2": {
+					"type": "listbox",
+					"left": 17,
+					"top": 264,
+					"width": 331,
+					"height": 683,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.hosts",
+					"currentItemSource": "Form:C1466.host",
+					"sizingX": "fixed",
+					"sizingY": "grow",
+					"focusable": false,
+					"showFooters": false,
+					"method": "ObjectMethods/lb_group2.4dm",
+					"verticalLineStroke": "transparent",
+					"horizontalLineStroke": "transparent",
+					"alternateFill": "#F0F0F0",
+					"selectedItemsSource": "Form:C1466.hosts_selected",
+					"columns": [
+						{
+							"header": {
+								"text": "Host",
+								"name": "Header6"
+							},
+							"name": "Column6",
+							"footer": {
+								"name": "Footer6",
+								"dataSource": "",
+								"variableCalculation": "sum",
+								"dataSourceTypeHint": "number"
+							},
+							"width": 202,
+							"dataSource": "This:C1470.name"
+						},
+						{
+							"header": {
+								"name": "Header7",
+								"text": "Nbr req"
+							},
+							"name": "Column7",
+							"footer": {
+								"name": "Footer7"
+							},
+							"dataSource": "This:C1470.processes.requests.length",
+							"width": 112,
+							"dataSourceTypeHint": "number",
+							"numberFormat": "### ### ### ###"
+						}
+					]
+				}
+			}
+		}
+	],
+	"geometryStamp": 371,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	},
+	"method": "method.4dm"
+}
