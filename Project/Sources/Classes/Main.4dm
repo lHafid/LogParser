@@ -1,35 +1,76 @@
 Class constructor($formName : Text)
+	
 	This:C1470._requestLabels()
 	$formData:=New object:C1471("main"; This:C1470)
 	$ref:=Open form window:C675($formName)
 	DIALOG:C40($formName; $formData)
 	CLOSE WINDOW:C154($ref)
 	
-Function getMenu()->$menus : Collection
+	
+	
+Function getMenu()
 	$menus:=New collection:C1472()
 	
 	$menu:=New object:C1471()
+	$menu.ident:="global"
 	$menu.label:="Global"
 	$menu.page:=1
 	$menus.push($menu)
 	
 	$menu:=New object:C1471()
 	$menu.label:="By Process"
+	$menu.ident:="process"
 	$menu.page:=2
 	$menus.push($menu)
 	
 	$menu:=New object:C1471()
 	$menu.label:="By user"
+	$menu.ident:="user"
 	$menu.page:=3
 	$menus.push($menu)
 	
 	$menu:=New object:C1471()
+	$menu.ident:="host"
 	$menu.label:="By host"
 	$menu.page:=4
 	$menus.push($menu)
 	
-Function set_es_request($es : Object)
-	This:C1470.es_request:=$es
+	return $menus
+	
+	
+Function metrics($duration : Object)
+	$bytesOutSum:=This:C1470.processes.sum("bytes_out")
+	$bytesInSum:=This:C1470.processes.sum("bytes_in")
+	$bytesSum:=$bytesOutSum+$bytesInSum
+	
+	
+	$metrics:=New object:C1471()
+	$metrics.durationMin:=New object:C1471("value"; $duration.min; "label"; "Duration min")
+	$metrics.durationSec:=New object:C1471("value"; $duration.sec; "label"; "Duration sec")
+	$metrics.totalReq:=New object:C1471("value"; This:C1470.requests.length; "label"; "Total req")
+	$metrics.reqPerMin:=New object:C1471("value"; Int:C8(This:C1470.requests.length/$duration.min); "label"; "Req/min")
+	$metrics.reqPerSec:=New object:C1471("value"; Int:C8(This:C1470.requests.length/$duration.sec); "label"; "Req/sec")
+	$metrics.byetsOut:=New object:C1471("value"; $bytesOutSum; "label"; "Bytes Out")
+	$metrics.bytesIn:=New object:C1471("value"; $bytesInSum; "label"; "Bytes In")
+	$metrics.totalBytes:=New object:C1471("value"; $bytesSum; "label"; "Bytes total")
+	$metrics.bytesOutPerSec:=New object:C1471("value"; Int:C8($bytesOutSum/$duration.sec); "label"; "Bytes Out/sec")
+	$metrics.bytesInPerSec:=New object:C1471("value"; Int:C8($bytesInSum/$duration.sec); "label"; "Bytes In/sec")
+	$metrics.bytesOutPerMin:=New object:C1471("value"; Int:C8($bytesOutSum/$duration.min); "label"; "Bytes Out/min")
+	$metrics.bytesInPerMin:=New object:C1471("value"; Int:C8($bytesInSum/$duration.min); "label"; "Bytes In/min")
+	$metrics.byetsPerMin:=New object:C1471("value"; Int:C8($bytesSum/$duration.min); "label"; "Bytes/min")
+	$metrics.byetsPerSec:=New object:C1471("value"; Int:C8($bytesSum/$duration.sec); "label"; "Bytes/sec")
+	$metrics.totalProcesses:=New object:C1471("value"; This:C1470.requests.process.length; "label"; "Processes total")
+	$metrics.processesPerSec:=New object:C1471("value"; This:C1470.requests.process.length/$duration.sec; "label"; "Processes/sec")
+	$metrics.processesPerMin:=New object:C1471("value"; This:C1470.requests.process.length/$duration.min; "label"; "Processes/min")
+	$metrics.totalUsers:=New object:C1471("value"; This:C1470.requests.process.user.length; "label"; "Uers total")
+	$metrics.usersPerSec:=New object:C1471("value"; This:C1470.requests.process.user.length/$duration.sec; "label"; "Users/sec")
+	$metrics.usersPerMin:=New object:C1471("value"; This:C1470.requests.process.user.length/$duration.min; "label"; "Users/min")
+	$metrics.totalHosts:=New object:C1471("value"; This:C1470.requests.process.host.length; "label"; "Hosts total")
+	$metrics.hostsPerSec:=New object:C1471("value"; This:C1470.requests.process.host.length/$duration.sec; "label"; "Hosts/sec")
+	$metrics.hostsPerMin:=New object:C1471("value"; This:C1470.requests.process.host.length/$duration.min; "label"; "Hosts/min")
+	
+	return $metrics
+	
 	
 Function _requestLabels()
 	$file:=File:C1566("/RESOURCES/requests.json")
@@ -55,8 +96,8 @@ Function graphsType()
 	APPEND MENU ITEM:C411($menu; "Requests by minutes")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "line_reqByMin")
 	
-	APPEND MENU ITEM:C411($menu; "Requests by seconds")
-	SET MENU ITEM PARAMETER:C1004($menu; -1; "line_reqBySec")
+	//APPEND MENU ITEM($menu; "Requests by seconds")
+	//SET MENU ITEM PARAMETER($menu; -1; "line_reqBySec")
 	
 	APPEND MENU ITEM:C411($menu; "Distribution of components")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "pie_distComp")
@@ -64,8 +105,8 @@ Function graphsType()
 	APPEND MENU ITEM:C411($menu; "Processes by minutes")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "line_procByMin")
 	
-	APPEND MENU ITEM:C411($menu; "Processes by second")
-	SET MENU ITEM PARAMETER:C1004($menu; -1; "line_procBySec")
+	//APPEND MENU ITEM($menu; "Processes by second")
+	//SET MENU ITEM PARAMETER($menu; -1; "line_procBySec")
 	
 	APPEND MENU ITEM:C411($menu; "Distribution of processes")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "pie_distProc")
@@ -73,8 +114,8 @@ Function graphsType()
 	APPEND MENU ITEM:C411($menu; "Users by minutes")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "line_usersByMin")
 	
-	APPEND MENU ITEM:C411($menu; "Users by second")
-	SET MENU ITEM PARAMETER:C1004($menu; -1; "line_usersBySec")
+	//APPEND MENU ITEM($menu; "Users by second")
+	//SET MENU ITEM PARAMETER($menu; -1; "line_usersBySec")
 	
 	APPEND MENU ITEM:C411($menu; "Distribution of users")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "pie_distUser")
@@ -82,8 +123,8 @@ Function graphsType()
 	APPEND MENU ITEM:C411($menu; "Hosts by minutes")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "line_hostsByMin")
 	
-	APPEND MENU ITEM:C411($menu; "Hosts by second")
-	SET MENU ITEM PARAMETER:C1004($menu; -1; "line_hostsBySec")
+	//APPEND MENU ITEM($menu; "Hosts by second")
+	//SET MENU ITEM PARAMETER($menu; -1; "line_hostsBySec")
 	
 	APPEND MENU ITEM:C411($menu; "Distribution of hosts")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "pie_distHost")
@@ -100,7 +141,7 @@ Function graphsType()
 			$settings:=New object:C1471()
 			$settings.requestsLabel:=Form:C1466.main.requestsLabel
 			$settings.options:=New object:C1471("title"; "Top ten: request type")
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 			
 		: ($choice="@reqByMin")
@@ -108,80 +149,81 @@ Function graphsType()
 			$settings.terminals:=Form:C1466.terminals
 			$settings.options:=New object:C1471("title"; "Request distribution by minute")
 			$settings.metrics:=Form:C1466.metrics
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@reqBySec")
 			$settings:=New object:C1471()
 			$settings.terminals:=Form:C1466.terminals
 			$settings.options:=New object:C1471("title"; "Request distribution by second")
 			$settings.metrics:=Form:C1466.metrics
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@distComp")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Distribution of components")
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 			
 		: ($choice="@procByMin")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Process distribution by minute")
 			$settings.metrics:=Form:C1466.metrics
+			$settings.context:={menu: Form:C1466.menu}
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; ds:C1482.Process.all(); $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@procBySec")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Process distribution by second")
 			$settings.metrics:=Form:C1466.metrics
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; ds:C1482.Process.all(); $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@distProc")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Distribution of processes")
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@usersByMin")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Users distribution by minute")
 			$settings.metrics:=Form:C1466.metrics
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@usersBySec")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Users distribution by second")
 			$settings.metrics:=Form:C1466.metrics
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@distUser")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Distribution of users")
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@hostsByMin")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Hosts distribution by minute")
 			$settings.metrics:=Form:C1466.metrics
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@hostsBySec")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Hosts distribution by second")
 			$settings.metrics:=Form:C1466.metrics
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 		: ($choice="@distHost")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Distribution of hosts")
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.es_request; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
 			
 	End case 
 	

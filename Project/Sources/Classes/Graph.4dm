@@ -25,6 +25,7 @@ Class constructor($type : Text; $es : Object; $settings : Object)
 	
 	
 Function build()->$data : Object
+	var $cache : cs:C1710.CacheEntity
 	$data:=New object:C1471()
 	$data.data:=New object:C1471()
 	
@@ -46,6 +47,7 @@ Function build()->$data : Object
 				End if 
 				$stats.push($stat)
 			End for 
+			
 			$stats:=$stats.orderBy("value desc")
 			$stats:=$stats.slice(0; 9)
 			$sum:=$stats.sum("value")
@@ -120,7 +122,7 @@ Function build()->$data : Object
 			$data.data.labels:=New collection:C1472()
 			
 			$startTime:=This:C1470.settings.terminals.first.stmp  //Time(String(Time(This.settings.terminals.first.time); HH MM))
-			$endTime:=This:C1470.settings.terminals.last.stmp  //Time(String(Time(This.settings.terminals.last.time+60); HH MM))
+			$endTime:=This:C1470.settings.terminals.last.stmp+60  //Time(String(Time(This.settings.terminals.last.time+60); HH MM))
 			
 			While ($startTime<$endTime)
 				$es:=This:C1470.es.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+60))
@@ -151,16 +153,16 @@ Function build()->$data : Object
 			$data.data.datasets.push(New object:C1471("data"; New collection:C1472()))
 			$data.data.labels:=New collection:C1472()
 			
-			$startTime:=Time:C179(String:C10(Time:C179(This:C1470.settings.terminals.first.time); HH MM:K7:2))
-			$endTime:=Time:C179(String:C10(Time:C179(This:C1470.settings.terminals.last.time+60); HH MM:K7:2))
+			$startTime:=This:C1470.settings.terminals.first.stmp  //Time(String(Time(This.settings.terminals.first.time); HH MM))
+			$endTime:=This:C1470.settings.terminals.last.stmp  //Time(String(Time(This.settings.terminals.last.time+60); HH MM))
 			
 			While ($startTime<$endTime)
-				$es:=This:C1470.es.query("time >= :1 and time < :2"; Time:C179($startTime-1); $startTime)
-				$data.data.labels.push(String:C10($startTime))
-				$data.data.datasets[1].data.push($es.length)
+				$es:=This:C1470.es.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+1))
+				$data.data.labels.push(String:C10(explo_stmp_read_time($startTime)))
+				$data.data.datasets[1].data.push($es.process.length)
 				$data.data.datasets[0].data.push(This:C1470.settings.metrics.reqPerSec.value)
 				
-				$startTime:=Time:C179($startTime+1)
+				$startTime+=1
 			End while 
 			
 			$data.data.datasets[1].backgroundColor:="#a6d75b"
@@ -184,16 +186,44 @@ Function build()->$data : Object
 			$data.data.datasets.push(New object:C1471("data"; New collection:C1472()))
 			$data.data.labels:=New collection:C1472()
 			
-			$startTime:=Time:C179(String:C10(Time:C179(This:C1470.settings.terminals.first.time); HH MM:K7:2))
-			$endTime:=Time:C179(String:C10(Time:C179(This:C1470.settings.terminals.last.time+60); HH MM:K7:2))
+			$startTime:=This:C1470.settings.terminals.first.stmp  //Time(String(Time(This.settings.terminals.first.time); HH MM))
+			$endTime:=This:C1470.settings.terminals.last.stmp  //Time(String(Time(This.settings.terminals.last.time+60); HH MM))
 			
-			While ($startTime<$endTime)
-				$es:=This:C1470.es.query("time >= :1 and time < :2"; Time:C179($startTime-60); $startTime)
-				$data.data.labels.push(String:C10($startTime))
-				$data.data.datasets[1].data.push($es.length)
-				$data.data.datasets[0].data.push(This:C1470.settings.metrics.processesPerMin.value)
-				$startTime:=Time:C179($startTime+60)
-			End while 
+			
+			$s:=Milliseconds:C459
+			
+			If (False:C215)
+				
+				
+			Else 
+				While ($startTime<$endTime)
+					$es:=This:C1470.es.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+60))
+					$data.data.labels.push(String:C10(explo_stmp_read_time($startTime)))
+					$data.data.datasets[1].data.push($es.process.length)
+					$startTime+=60
+				End while 
+				$data.data.datasets[0].data.resize($data.data.labels.length; This:C1470.settings.metrics.processesPerMin.value)
+				
+				//If (This.es.length>1000000)
+				//$cache:=ds.Cache.query("ident == :1"; "procByMin").first()
+				//If ($cache=Null)
+				//$cache:=ds.Cache.new()
+				//$cache.ident:="procByMin"
+				//End if 
+				
+				//$datasefts:={datasets: $data.data.datasets}
+				//If (This.settings.context.menu.page#1)
+				
+				//End if 
+				//$reslt:=$cache.save()
+				
+				
+				//End if 
+				
+			End if 
+			
+			$e:=Milliseconds:C459-$s
+			//ALERT(String($e))
 			
 			$data.data.datasets[1].backgroundColor:="#a6d75b"
 			$data.data.datasets[1].borderColor:="#115f9a"
@@ -205,6 +235,8 @@ Function build()->$data : Object
 			$data.data.datasets[0].label:="Average"
 			$data.data.datasets[0].fill:=False:C215
 			$data.data.datasets[0].pointStyle:="dash"
+			
+			
 			
 		: (This:C1470.type="@procBySec")
 			$data.type:="line"
@@ -361,15 +393,15 @@ Function build()->$data : Object
 			$data.data.datasets.push(New object:C1471("data"; New collection:C1472()))
 			$data.data.labels:=New collection:C1472()
 			
-			$startTime:=Time:C179(String:C10(Time:C179(This:C1470.settings.terminals.first.time); HH MM:K7:2))
-			$endTime:=Time:C179(String:C10(Time:C179(This:C1470.settings.terminals.last.time+60); HH MM:K7:2))
+			$startTime:=This:C1470.settings.terminals.first.stmp  //Time(String(Time(This.settings.terminals.first.time); HH MM))
+			$endTime:=This:C1470.settings.terminals.last.stmp  //Time(String(Time(This.settings.terminals.last.time+60); HH MM))
 			
 			While ($startTime<$endTime)
-				$es:=This:C1470.es.query("time >= :1 and time < :2"; Time:C179($startTime-60); $startTime)
-				$data.data.labels.push(String:C10($startTime))
+				$es:=This:C1470.es.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+60))
+				$data.data.labels.push(String:C10(explo_stmp_read_time($startTime)))
 				$data.data.datasets[1].data.push($es.process.user.length)
 				$data.data.datasets[0].data.push(This:C1470.settings.metrics.usersPerMin.value)
-				$startTime:=Time:C179($startTime+60)
+				$startTime+=60
 			End while 
 			
 			$data.data.datasets[1].backgroundColor:="#a6d75b"
@@ -466,15 +498,16 @@ Function build()->$data : Object
 			$data.data.datasets.push(New object:C1471("data"; New collection:C1472()))
 			$data.data.labels:=New collection:C1472()
 			
-			$startTime:=Time:C179(String:C10(Time:C179(This:C1470.settings.terminals.first.time); HH MM:K7:2))
-			$endTime:=Time:C179(String:C10(Time:C179(This:C1470.settings.terminals.last.time+60); HH MM:K7:2))
+			$startTime:=This:C1470.settings.terminals.first.stmp  //Time(String(Time(This.settings.terminals.first.time); HH MM))
+			$endTime:=This:C1470.settings.terminals.last.stmp  //Time(String(Time(This.settings.terminals.last.time+60); HH MM))
 			
 			While ($startTime<$endTime)
-				$es:=This:C1470.es.query("time >= :1 and time < :2"; Time:C179($startTime-60); $startTime)
+				$es:=This:C1470.es.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+60))
+				$data.data.labels.push(String:C10(explo_stmp_read_time($startTime)))
 				$data.data.labels.push(String:C10($startTime))
 				$data.data.datasets[1].data.push($es.process.host.length)
 				$data.data.datasets[0].data.push(This:C1470.settings.metrics.hostsPerMin.value)
-				$startTime:=Time:C179($startTime+60)
+				$startTime+=60
 			End while 
 			
 			$data.data.datasets[1].backgroundColor:="#a6d75b"

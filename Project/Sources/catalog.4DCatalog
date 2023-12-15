@@ -13,11 +13,14 @@
 		<field name="remoteProcessID" uuid="BC5817386FF440A4AADA0FED7F32F688" type="5" id="8"/>
 		<field name="UUID_Host" uuid="ECD17511C5EB4F15B53F76F0C03020A4" type="10" store_as_UUID="true" id="9"/>
 		<field name="UUID_User" uuid="23DCF6B10F1144DABCDA792DB0D2E8FC" type="10" store_as_UUID="true" id="10"/>
+		<field name="bytes_out" uuid="D8152A4A7F83489AA7213DF61AA4C257" type="5" id="11"/>
+		<field name="bytes_in" uuid="899DB48B6E584FF5822D1DF60F6D2CAB" type="5" id="12"/>
+		<field name="stmp" uuid="313127513A3E435E9FEA1E9CD11FD3CB" type="4" id="13"/>
 		<primary_key field_name="UUID" field_uuid="FA4C802D36384A43B2DDD9AF6B98711E"/>
 		<table_extra>
-			<editor_table_info displayable_fields_count="11">
+			<editor_table_info displayable_fields_count="17">
 				<color red="255" green="255" blue="255" alpha="0"/>
-				<coordinates left="413.06567382812" top="0" width="214.94058227539" height="275.68533325195"/>
+				<coordinates left="413.06567382812" top="0" width="279.75717163086" height="402.43463134765"/>
 			</editor_table_info>
 		</table_extra>
 	</table>
@@ -47,9 +50,9 @@
 		<field name="stmp" uuid="928D3FFE9D91463B82DC76C7ED320803" type="4" id="12"/>
 		<primary_key field_name="UUID" field_uuid="51FDC2749FD64E76B75C06ACBC6458C9"/>
 		<table_extra>
-			<editor_table_info displayable_fields_count="12">
+			<editor_table_info displayable_fields_count="15">
 				<color red="255" green="255" blue="255" alpha="0"/>
-				<coordinates left="844.40692138672" top="0" width="211.32476806641" height="313.48648071289"/>
+				<coordinates left="844.40692138672" top="0" width="230.6898803711" height="365.95971679687"/>
 			</editor_table_info>
 		</table_extra>
 	</table>
@@ -71,7 +74,7 @@
 		<table_extra>
 			<editor_table_info displayable_fields_count="6">
 				<color red="255" green="255" blue="255" alpha="0"/>
-				<coordinates left="722.18304443359" top="429.31816101074" width="120" height="167.33203125"/>
+				<coordinates left="794.42889404296" top="464.06669616699" width="120" height="167.33203125"/>
 			</editor_table_info>
 		</table_extra>
 	</table>
@@ -82,7 +85,19 @@
 		<table_extra>
 			<editor_table_info displayable_fields_count="6">
 				<color red="255" green="255" blue="255" alpha="0"/>
-				<coordinates left="1143.5059204101" top="298.20433044433" width="120" height="167.33203125"/>
+				<coordinates left="1211.9772338867" top="348.3207244873" width="120" height="167.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<table name="Cache" uuid="256EB499F4C9404CB8E4914F9E7FA8D5" id="7">
+		<field name="UUID" uuid="E78F85EAE5E14B55AFA54D4A857BE836" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="ident" uuid="B8E375D0ECFB46E2A8A04DE4F2126C44" type="10" limiting_length="255" id="2"/>
+		<field name="datasets" uuid="C55D9E1A8D924951830C184470996B54" type="21" blob_switch_size="2147483647" id="4"/>
+		<primary_key field_name="UUID" field_uuid="E78F85EAE5E14B55AFA54D4A857BE836"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="8">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="337.24801635742" top="604.82206726074" width="181.58666992188" height="227.05676269531"/>
 			</editor_table_info>
 		</table_extra>
 	</table>
@@ -191,9 +206,24 @@
 			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
 		</field_ref>
 	</index>
+	<index kind="regular" uuid="365C973F86854B97952E95953C6B376B" type="3">
+		<field_ref uuid="899DB48B6E584FF5822D1DF60F6D2CAB" name="bytes_in">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
 	<index kind="regular" unique_keys="true" uuid="39B9D4203E334E8BBCF004297A7E4988" type="1">
 		<field_ref uuid="51FDC2749FD64E76B75C06ACBC6458C9" name="UUID">
 			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="3AE8ECC6D2764AE5A83912311D324A5D" type="3">
+		<field_ref uuid="313127513A3E435E9FEA1E9CD11FD3CB" name="stmp">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="3CECA242B37C452DA057368F9ABDD476" type="7">
+		<field_ref uuid="E78F85EAE5E14B55AFA54D4A857BE836" name="UUID">
+			<table_ref uuid="256EB499F4C9404CB8E4914F9E7FA8D5" name="Cache"/>
 		</field_ref>
 	</index>
 	<index kind="regular" unique_keys="true" uuid="489E338F0D7E4BB88DC5D411F9CAC5FF" type="1">
@@ -214,14 +244,14 @@
 			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
 		</field_ref>
 	</index>
+	<index kind="regular" uuid="66BC2B8CF3174088AF62DEBB834F20D3" type="3">
+		<field_ref uuid="05345BF9C4A64B1581F7725002FF3874" name="request">
+			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
+		</field_ref>
+	</index>
 	<index kind="regular" unique_keys="true" uuid="68D67C1C2DB746AF885C984EE0E7B69C" type="1">
 		<field_ref uuid="97B1713340384C0B863DCF5644237B6C" name="UUID">
 			<table_ref uuid="B181BD6EA81E4676856F5C721B3BA848" name="Host"/>
-		</field_ref>
-	</index>
-	<index kind="regular" uuid="6BDFB4113F734910B74C09D5814C7027" type="1">
-		<field_ref uuid="05345BF9C4A64B1581F7725002FF3874" name="request">
-			<table_ref uuid="16CAB1A92735475DB451A47D8E1B7D2F" name="Request"/>
 		</field_ref>
 	</index>
 	<index kind="regular" uuid="73298A36674144AC968AD439D50A9C56" type="1">
@@ -266,6 +296,11 @@
 	</index>
 	<index kind="regular" uuid="D4252518133A413AA8E430931B823FD8" type="3">
 		<field_ref uuid="ECD17511C5EB4F15B53F76F0C03020A4" name="UUID_Host">
+			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="EB86A01DF9E447CC8B60BFD077B27310" type="3">
+		<field_ref uuid="D8152A4A7F83489AA7213DF61AA4C257" name="bytes_out">
 			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
 		</field_ref>
 	</index>
