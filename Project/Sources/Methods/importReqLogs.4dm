@@ -56,6 +56,17 @@ For each ($file; $files)
 						End if 
 						$e_request.stmp:=explo_stmp_build($e_request.date; $e_request.time)
 						
+						
+						$e_process:=ds:C1482.Process.query("index == :1"; String:C10($columns[4])).first()
+						If ($e_process=Null:C1517)
+							$UUID_Process:=""
+						Else 
+							$e_process.bytes_out:=Num:C11($e_process.bytes_out)+Num:C11($columns[6])
+							$e_process.bytes_in:=Num:C11($e_process.bytes_in)+Num:C11($columns[7])
+							$rslt:=$e_process.save()
+							$UUID_Process:=$e_process.UUID
+						End if 
+						
 						$e_request.UUID_Component:=String:C10($e_component.UUID)
 						$e_request.UUID_Process:=$UUID_Process
 						$e_request.request:=Num:C11($columns[5])

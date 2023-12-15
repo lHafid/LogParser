@@ -1,87 +1,22 @@
 //%attributes = {"preemptive":"capable"}
 
 
-$cores:=4
-$requests:=ds:C1482.Request.all()
-
-$pas:=Int:C8($requests.length/$cores)
+$startTime:=658628341
+$endTime:=658835190
 
 
+$col:=New collection:C1472()
 
-$signal:=New signal:C1641
-Use ($signal)
-	$signal.result:=New shared collection:C1527()
-	$signal.cores:=$cores
-End use 
-For ($i; 0; $cores-1)
-	$start:=$i*$pas
-	If ($i=3)
-		$end:=$requests.length
-	Else 
-		$end:=$pas+($i*$pas)
-	End if 
+$s:=Milliseconds:C459
+While ($startTime<$endTime)
+	$t1:=Milliseconds:C459
 	
-	$es:=$requests.slice($start; $end)
-	$proc:=New process:C317("_test"; 0; "_test"; $es; $i; $signal)
-End for 
-
-$signal.wait()
-
+	$es:=ds:C1482.Request.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+60))
+	$col.push({p: $es.process.length; req: $es.length; time: Milliseconds:C459-$t1})
+	
+	$startTime+=60
+End while 
 $e:=Milliseconds:C459-$s
+
 ALERT:C41(String:C10($e))
-
-
-
-
-
-
-
-
-
-//TRACE
-
-//$startTime:=658628341
-////$startTime:=1
-//$endTime:=658835190
-////$endTime:=$startTime+1000
-
-//$cores:=4
-//$requests:=ds.Request.all()
-
-//$delta:=$endTime-$startTime
-//$pas:=Int($delta/$cores)
-
-//While (Mod($pas; 60)#0)
-//$pas+=1
-//End while 
-
-//$s:=Milliseconds
-//$signal:=New signal
-//Use ($signal)
-//$signal.result:=New shared collection()
-//$signal.cores:=$cores
-//End use 
-//For ($i; 0; $cores-1)
-//$start:=$startTime+($i*$pas)
-//If ($i=3)
-//$end:=$endTime
-//Else 
-//$end:=$startTime+($i*$pas)+$pas
-//End if 
-//$proc:=New process("_test"; 0; "calculateGraph"; $requests; $start; $end; $i; $signal)
-//End for 
-
-//$signal.wait()
-
-
-//$data:=$signal.result.orderBy("order")
-//$dataConsolidated:=New object("labels"; New collection(); "datasets"; New collection())
-//For each ($d; $data)
-
-//$dataConsolidated.labels:=$dataConsolidated.labels.concat($d.labels)
-//$dataConsolidated.datasets:=$dataConsolidated.datasets.concat($d.datasets)
-
-//End for each 
-
-//$e:=Milliseconds-$s
-//ALERT(String($e))
+SET TEXT TO PASTEBOARD:C523(JSON Stringify:C1217($col; *))

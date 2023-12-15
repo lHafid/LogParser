@@ -70,6 +70,9 @@ If ($folder.exists)
 				End if 
 				$e_process.stmp:=explo_stmp_build($e_process.date; $e_process.time)
 				
+				
+				$e_process.bytes_out:=0
+				$e_process.bytes_in:=0
 				$e_process.index:=Num:C11($columns[2])
 				$e_process.serverProcessID:=Num:C11($columns[5])
 				$e_process.remoteProcessID:=Num:C11($columns[6])
