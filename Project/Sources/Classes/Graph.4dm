@@ -24,6 +24,42 @@ Class constructor($type : Text; $es : Object; $settings : Object)
 	WA OPEN URL:C1020(*; "graph_"; Get 4D folder:C485(Current resources folder:K5:16)+"output.html")
 	
 	
+Function stepLink($type : Text)
+	$themes:=Split string:C1554($type; "by"; sk ignore empty strings:K86:1+sk trim spaces:K86:2)
+	Case of 
+		: ($themes[1]="min")
+			$step:=60
+		: ($themes[1]="sec")
+			$step:=1
+	End case 
+	
+	Case of 
+		: ($themes[0]="proc")
+			$link:="process"
+	End case 
+	
+	return {step: $step; link: $link}
+	
+	
+Function lablesLine($startTime : Integer; $endTime : Integer; $stepLink : Object)
+	$lables:=New collection:C1472()
+	
+	While ($startTime<$endTime)
+		$lables.push(String:C10(explo_stmp_read_time($startTime)))
+		$startTime+=$stepLink.step
+	End while 
+	return $lables
+	
+Function lineData($items : Object; $startTime : Integer; $endTime : Integer; $stepLink : Object)
+	$result:=New collection:C1472()
+	
+	While ($startTime<$endTime)
+		$es:=$items.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+$stepLink.step))
+		$result.push($es[$stepLink.link].length)
+		$startTime+=$stepLink.step
+	End while 
+	return $result
+	
 Function build()->$data : Object
 	var $cache : cs:C1710.CacheEntity
 	$data:=New object:C1471()
@@ -181,49 +217,22 @@ Function build()->$data : Object
 		: (This:C1470.type="@procByMin")
 			$data.type:="line"
 			
-			$data.data.datasets:=New collection:C1472()
-			$data.data.datasets.push(New object:C1471("data"; New collection:C1472()))
-			$data.data.datasets.push(New object:C1471("data"; New collection:C1472()))
-			$data.data.labels:=New collection:C1472()
 			
-			$startTime:=This:C1470.settings.terminals.first.stmp  //Time(String(Time(This.settings.terminals.first.time); HH MM))
-			$endTime:=This:C1470.settings.terminals.last.stmp  //Time(String(Time(This.settings.terminals.last.time+60); HH MM))
-			
-			
-			$s:=Milliseconds:C459
-			
-			If (False:C215)
+			$cache:=ds:C1482.Cache.query("ident == :1"; This:C1470.settings.context.menu.ident).first()
+			If ($cache#Null:C1517)
+				$result:=$cache.getGraph(This:C1470.es; "byMin")
 				
+				//Else 
+				//$stepLink:=This.stepLink("procByMin")
 				
-			Else 
-				While ($startTime<$endTime)
-					$es:=This:C1470.es.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+60))
-					$data.data.labels.push(String:C10(explo_stmp_read_time($startTime)))
-					$data.data.datasets[1].data.push($es.process.length)
-					$startTime+=60
-				End while 
-				$data.data.datasets[0].data.resize($data.data.labels.length; This:C1470.settings.metrics.processesPerMin.value)
-				
-				//If (This.es.length>1000000)
-				//$cache:=ds.Cache.query("ident == :1"; "procByMin").first()
-				//If ($cache=Null)
-				//$cache:=ds.Cache.new()
-				//$cache.ident:="procByMin"
-				//End if 
-				
-				//$datasefts:={datasets: $data.data.datasets}
-				//If (This.settings.context.menu.page#1)
-				
-				//End if 
-				//$reslt:=$cache.save()
-				
-				
-				//End if 
-				
+				//$result:=New object()
+				//$result.labels:=This.lablesLine(This.settings.terminals.first.stmp; This.settings.terminals.last.stmp; $stepLink)
+				//$result.datasets:=[{data: This.lineData(This.es; This.settings.terminals.first.stmp; This.settings.terminals.last.stmp; $stepLink)}]
 			End if 
 			
-			$e:=Milliseconds:C459-$s
-			//ALERT(String($e))
+			$data.data.labels:=$result.labels
+			$data.data.datasets:=$result.datasets
+			$data.data.datasets.unshift(New object:C1471("data"; New collection:C1472().resize($result.labels.length; This:C1470.settings.metrics.processesPerMin.value)))
 			
 			$data.data.datasets[1].backgroundColor:="#a6d75b"
 			$data.data.datasets[1].borderColor:="#115f9a"

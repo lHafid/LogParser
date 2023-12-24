@@ -91,8 +91,14 @@
 	</table>
 	<table name="Cache" uuid="256EB499F4C9404CB8E4914F9E7FA8D5" id="7">
 		<field name="UUID" uuid="E78F85EAE5E14B55AFA54D4A857BE836" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
-		<field name="ident" uuid="B8E375D0ECFB46E2A8A04DE4F2126C44" type="10" limiting_length="255" id="2"/>
-		<field name="datasets" uuid="C55D9E1A8D924951830C184470996B54" type="21" blob_switch_size="2147483647" id="4"/>
+		<field name="ident" uuid="B8E375D0ECFB46E2A8A04DE4F2126C44" type="10" limiting_length="255" id="2">
+			<field_extra multi_line="false">
+				<editor_field_info>
+					<color red="255" green="255" blue="255" alpha="0"/>
+				</editor_field_info>
+			</field_extra>
+		</field>
+		<field name="graph" uuid="C55D9E1A8D924951830C184470996B54" type="21" blob_switch_size="2147483647" id="4"/>
 		<primary_key field_name="UUID" field_uuid="E78F85EAE5E14B55AFA54D4A857BE836"/>
 		<table_extra>
 			<editor_table_info displayable_fields_count="8">

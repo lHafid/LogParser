@@ -1,22 +1,46 @@
 //%attributes = {"preemptive":"capable"}
 
+//TRUNCATE TABLE([Cache])
 
 $startTime:=658628341
 $endTime:=658835190
 
 
-$col:=New collection:C1472()
+$groups:=ds:C1482.Process_Group.all()
+$graph:=cs:C1710.Graph.new()
+$stepLink:=$graph.stepLink("procByMin")
 
-$s:=Milliseconds:C459
-While ($startTime<$endTime)
-	$t1:=Milliseconds:C459
-	
-	$es:=ds:C1482.Request.query("stmp >= :1 and stmp < :2"; $startTime; ($startTime+60))
-	$col.push({p: $es.process.length; req: $es.length; time: Milliseconds:C459-$t1})
-	
-	$startTime+=60
-End while 
-$e:=Milliseconds:C459-$s
+$graphToStore:=New object:C1471()
+$graphToStore.byMin:=New object:C1471()
 
-ALERT:C41(String:C10($e))
-SET TEXT TO PASTEBOARD:C523(JSON Stringify:C1217($col; *))
+$e:=ds:C1482.Cache.new()
+$e.ident:="process"
+
+$graphToStore.byMin.labels:=$graph.lablesLine($startTime; $endTime; $stepLink)
+$graphToStore.byMin.data:=New object:C1471()
+For each ($group; $groups)
+	$graphToStore.byMin.data[$group.UUID]:=$graph.lineData($group.processes.requests; $startTime; $endTime; $stepLink)
+End for each 
+
+$e.graph:=$graphToStore
+$e.save()
+
+
+
+
+//$e:=ds.Cache.new()
+//$e.ident:="process"
+
+//$graph:=cs.Graph.new()
+//$stepLink:=$graph.stepLink("procByMin")
+
+//$graphToStore:=New object()
+//$graphToStore.byMin:=New object()
+
+
+
+//$graphToStore.byMin.datasets:=[{data: $graph.lineData(ds.Request.all(); $startTime; $endTime; $stepLink)}]
+//$graphToStore.byMin.labels:=$graph.lablesLine($startTime; $endTime; $stepLink)
+
+//$e.graph:=$graphToStore
+//$e.save()
