@@ -20,18 +20,21 @@ Function getMenu()
 	$menu:=New object:C1471()
 	$menu.label:="By Process"
 	$menu.ident:="process"
+	$menu.fk:="UUID_Process_Group"
 	$menu.page:=2
 	$menus.push($menu)
 	
 	$menu:=New object:C1471()
 	$menu.label:="By user"
 	$menu.ident:="user"
+	$menu.fk:="UUID_User"
 	$menu.page:=3
 	$menus.push($menu)
 	
 	$menu:=New object:C1471()
 	$menu.ident:="host"
 	$menu.label:="By host"
+	$menu.fk:="UUID_Host"
 	$menu.page:=4
 	$menus.push($menu)
 	
@@ -129,6 +132,9 @@ Function graphsType()
 	APPEND MENU ITEM:C411($menu; "Distribution of hosts")
 	SET MENU ITEM PARAMETER:C1004($menu; -1; "pie_distHost")
 	
+	APPEND MENU ITEM:C411($menu; "Distribution of tables")
+	SET MENU ITEM PARAMETER:C1004($menu; -1; "pie_distTable")
+	
 	
 	
 	$choice:=Dynamic pop up menu:C1006($menu)
@@ -141,7 +147,7 @@ Function graphsType()
 			$settings:=New object:C1471()
 			$settings.requestsLabel:=Form:C1466.main.requestsLabel
 			$settings.options:=New object:C1471("title"; "Top ten: request type")
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 			
 		: ($choice="@reqByMin")
@@ -149,19 +155,19 @@ Function graphsType()
 			$settings.terminals:=Form:C1466.terminals
 			$settings.options:=New object:C1471("title"; "Request distribution by minute")
 			$settings.metrics:=Form:C1466.metrics
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@reqBySec")
 			$settings:=New object:C1471()
 			$settings.terminals:=Form:C1466.terminals
 			$settings.options:=New object:C1471("title"; "Request distribution by second")
 			$settings.metrics:=Form:C1466.metrics
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@distComp")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Distribution of components")
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 			
 		: ($choice="@procByMin")
@@ -170,60 +176,68 @@ Function graphsType()
 			$settings.metrics:=Form:C1466.metrics
 			$settings.context:={menu: Form:C1466.menu}
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@procBySec")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Process distribution by second")
 			$settings.metrics:=Form:C1466.metrics
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@distProc")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Distribution of processes")
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@usersByMin")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Users distribution by minute")
 			$settings.metrics:=Form:C1466.metrics
+			$settings.context:={menu: Form:C1466.menu}
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@usersBySec")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Users distribution by second")
 			$settings.metrics:=Form:C1466.metrics
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@distUser")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Distribution of users")
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@hostsByMin")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Hosts distribution by minute")
 			$settings.metrics:=Form:C1466.metrics
+			$settings.context:={menu: Form:C1466.menu}
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@hostsBySec")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Hosts distribution by second")
 			$settings.metrics:=Form:C1466.metrics
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 		: ($choice="@distHost")
 			$settings:=New object:C1471()
 			$settings.options:=New object:C1471("title"; "Distribution of hosts")
 			$settings.terminals:=Form:C1466.terminals
-			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings)
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
+			
+		: ($choice="@distTable")
+			$settings:=New object:C1471()
+			$settings.options:=New object:C1471("title"; "Distribution of tables")
+			$settings.terminals:=Form:C1466.terminals
+			Form:C1466.graph:=cs:C1710.Graph.new($choice; This:C1470.requests; $settings).load()
 			
 	End case 
 	

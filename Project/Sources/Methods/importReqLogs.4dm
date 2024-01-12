@@ -2,7 +2,8 @@
 
 C_COLLECTION:C1488($1)
 C_OBJECT:C1216($signal; $2)
-var $e_group; $e_host; $e_user; $e_component; $e_process : Object
+var $e_group; $e_host; $e_user; $e_component; $e_process; $table : Object
+var $UUID_Process
 $files:=$1
 $signal:=$2
 
@@ -39,6 +40,10 @@ For each ($file; $files)
 							$UUID_Process:=$e_process.UUID
 						End if 
 						
+						If (Num:C11($columns[0])=1139401)
+							TRACE:C157
+						End if 
+						
 						$e_request:=ds:C1482.Request.new()
 						$e_request.sequence:=Num:C11($columns[0])
 						$dataTime:=Split string:C1554($columns[1]; ","; sk ignore empty strings:K86:1+sk trim spaces:K86:2)
@@ -61,8 +66,12 @@ For each ($file; $files)
 						If ($e_process=Null:C1517)
 							$UUID_Process:=""
 						Else 
-							$e_process.bytes_out:=Num:C11($e_process.bytes_out)+Num:C11($columns[6])
-							$e_process.bytes_in:=Num:C11($e_process.bytes_in)+Num:C11($columns[7])
+							If ($columns.length>=7)
+								$e_process.bytes_out:=Num:C11($e_process.bytes_out)+Num:C11($columns[6])
+							End if 
+							If ($columns.length>=8)
+								$e_process.bytes_in:=Num:C11($e_process.bytes_in)+Num:C11($columns[7])
+							End if 
 							$rslt:=$e_process.save()
 							$UUID_Process:=$e_process.UUID
 						End if 
@@ -83,9 +92,24 @@ For each ($file; $files)
 						If ($columns.length>=8)
 							$e_request.write_duration:=Num:C11($columns[9])
 						End if 
+						If ($columns.length>=13) && ($columns[12]#"")
+							$table:=ds:C1482.Table.query("name == :1"; $columns[12]).first()
+							If ($table=Null:C1517)
+								$table:=ds:C1482.Table.new()
+								$table.name:=$columns[12]
+								$table.save()
+							End if 
+							$UUID_Table:=$table.UUID
+						Else 
+							$UUID_Table:=""
+						End if 
+						$e_request.UUID_Table:=$UUID_Table
+						
 						$result:=$e_request.save()
+						
 					End if 
 				End if 
+				
 			End if 
 		End for each 
 		

@@ -103,7 +103,11 @@ If ($folder.exists)
 	$signal:=New signal:C1641()
 	$continue:=True:C214
 	For ($i; 0; $nbr_cores)
-		$col:=$requestLog.slice($i*$numFilesPerProcess; ($i*$numFilesPerProcess)+$numFilesPerProcess)
+		If ($i=$nbr_cores)
+			$col:=$requestLog.slice($i*$numFilesPerProcess; $requestLog.length)
+		Else 
+			$col:=$requestLog.slice($i*$numFilesPerProcess; ($i*$numFilesPerProcess)+$numFilesPerProcess)
+		End if 
 		If ($col.length#0)
 			$proc:=New process:C317("importReqLogs"; 0; "ImportProc"+String:C10($i); $col; $signal)
 			Use ($signal)
@@ -119,6 +123,25 @@ If ($folder.exists)
 	
 	
 	$signaled:=$signal.wait()
+	
+	
+	
+	
+	TRUNCATE TABLE:C1051([Cache:7])
+	
+	$cache:=ds:C1482.Request.calculateCache()
+	build_cache("global"; $cache.cache.first.stmp; $cache.cache.last.stmp)
+	build_cache("process"; $cache.cache.first.stmp; $cache.cache.last.stmp)
+	build_cache("user"; $cache.cache.first.stmp; $cache.cache.last.stmp)
+	build_cache("host"; $cache.cache.first.stmp; $cache.cache.last.stmp)
+	
+	//$proc_global:=New process("build_cache"; 0; "global"; "global"; $terminals.first.stmp; $terminals.last.stmp)
+	//$proc_process:=New process("build_cache"; 0; "process"; "process"; $terminals.first.stmp; $terminals.last.stmp)
+	//$proc_process:=New process("build_cache"; 0; "user"; "user"; $terminals.first.stmp; $terminals.last.stmp)
+	//$proc_process:=New process("build_cache"; 0; "host"; "host"; $terminals.first.stmp; $terminals.last.stmp)
+	
+	
+	
 	
 Else 
 	ALERT:C41("Dossier n'existe pas")
