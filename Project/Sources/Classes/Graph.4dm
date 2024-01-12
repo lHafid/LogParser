@@ -85,6 +85,10 @@ Function lineData_v2($items : Object; $startTime : Integer; $endTime : Integer; 
 			$result.host.push($processes.distinct("UUID_Host"))
 		End if 
 		
+		If (Bool:C1537($themes.table))
+			$result.table.push($es.distinct("UUID_Table"))
+		End if 
+		
 		$startTime+=$step
 	End while 
 	return $result
@@ -114,6 +118,10 @@ Function lineData($items : Object; $startTime : Integer; $endTime : Integer; $st
 		
 		If (Bool:C1537($themes.host))
 			$result.host.push($processes.host.length)
+		End if 
+		
+		If (Bool:C1537($themes.table))
+			$result.table.push($es.table.length)
 		End if 
 		
 		$startTime+=$step
@@ -281,6 +289,13 @@ Function build()->$data : Object
 			$cache:=ds:C1482.Cache.query("ident == :1"; This:C1470.settings.context.menu.ident).first()
 			If ($cache#Null:C1517)
 				$result:=$cache.getGraph("processBymin"; This:C1470.es.process.distinct(This:C1470.settings.context.menu.fk))
+				
+			Else 
+				$values:=This:C1470.lineData(This:C1470.es; This:C1470.settings.terminals.first.stmp; This:C1470.settings.terminals.last.stmp; 60; {process: True:C214; user: False:C215; host: False:C215; table: False:C215}).process
+				$result:=New object:C1471()
+				$result.labels:=This:C1470.lablesLine(This:C1470.settings.terminals.first.stmp; This:C1470.settings.terminals.last.stmp; 60)
+				$result.datasets:=[{data: $values}]
+				
 			End if 
 			
 			$data.data.labels:=$result.labels
@@ -455,6 +470,12 @@ Function build()->$data : Object
 				$cache:=ds:C1482.Cache.query("ident == :1"; This:C1470.settings.context.menu.ident).first()
 				If ($cache#Null:C1517)
 					$result:=$cache.getGraph("userBymin"; This:C1470.es.process.distinct(This:C1470.settings.context.menu.fk))
+				Else 
+					$values:=This:C1470.lineData(This:C1470.es; This:C1470.settings.terminals.first.stmp; This:C1470.settings.terminals.last.stmp; 60; {process: False:C215; user: True:C214; host: False:C215; table: False:C215}).user
+					
+					$result:=New object:C1471()
+					$result.labels:=This:C1470.lablesLine(This:C1470.settings.terminals.first.stmp; This:C1470.settings.terminals.last.stmp; 60)
+					$result.datasets:=[{data: $values}]
 				End if 
 			Else 
 				$result:=New object:C1471()
@@ -561,6 +582,12 @@ Function build()->$data : Object
 			$cache:=ds:C1482.Cache.query("ident == :1"; This:C1470.settings.context.menu.ident).first()
 			If ($cache#Null:C1517)
 				$result:=$cache.getGraph("hostBymin"; This:C1470.es.process.distinct(This:C1470.settings.context.menu.fk))
+			Else 
+				$values:=This:C1470.lineData(This:C1470.es; This:C1470.settings.terminals.first.stmp; This:C1470.settings.terminals.last.stmp; 60; {process: False:C215; user: False:C215; host: True:C214; table: False:C215}).host
+				
+				$result:=New object:C1471()
+				$result.labels:=This:C1470.lablesLine(This:C1470.settings.terminals.first.stmp; This:C1470.settings.terminals.last.stmp; 60)
+				$result.datasets:=[{data: $values}]
 			End if 
 			$data.data.labels:=$result.labels
 			$data.data.datasets:=$result.datasets

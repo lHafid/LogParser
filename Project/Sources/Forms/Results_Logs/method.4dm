@@ -32,6 +32,12 @@ Case of
 				$formula:=Formula:C1597(This:C1470.processes.requests.length)
 				Form:C1466.hosts:=ds:C1482.Host.all().orderByFormula($formula; dk descending:K85:32)
 				Form:C1466.metrics:=Form:C1466.main.clearMetrics()
+				
+			: (FORM Get current page:C276()=5)
+				$formula:=Formula:C1597(This:C1470.requests.length)
+				Form:C1466.tables:=ds:C1482.Table.all().orderByFormula($formula; dk descending:K85:32)
+				Form:C1466.metrics:=Form:C1466.main.clearMetrics()
+				
 		End case 
 		
 		

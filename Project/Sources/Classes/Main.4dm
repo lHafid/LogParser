@@ -38,6 +38,13 @@ Function getMenu()
 	$menu.page:=4
 	$menus.push($menu)
 	
+	$menu:=New object:C1471()
+	$menu.ident:="table"
+	$menu.label:="By table"
+	$menu.fk:="UUID_Table"
+	$menu.page:=5
+	$menus.push($menu)
+	
 	return $menus
 	
 	

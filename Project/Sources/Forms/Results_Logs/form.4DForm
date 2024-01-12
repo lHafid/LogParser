@@ -793,9 +793,69 @@
 					]
 				}
 			}
+		},
+		{
+			"objects": {
+				"lb_tables": {
+					"type": "listbox",
+					"left": 17,
+					"top": 264,
+					"width": 331,
+					"height": 683,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.tables",
+					"currentItemSource": "Form:C1466.host",
+					"sizingX": "fixed",
+					"sizingY": "grow",
+					"focusable": false,
+					"showFooters": false,
+					"method": "ObjectMethods/lb_tables.4dm",
+					"verticalLineStroke": "transparent",
+					"horizontalLineStroke": "transparent",
+					"alternateFill": "#F0F0F0",
+					"selectedItemsSource": "Form:C1466.tables_selected",
+					"columns": [
+						{
+							"header": {
+								"text": "Tables",
+								"name": "Header8"
+							},
+							"name": "Column8",
+							"footer": {
+								"name": "Footer8",
+								"dataSource": "",
+								"variableCalculation": "sum",
+								"dataSourceTypeHint": "number"
+							},
+							"width": 202,
+							"dataSource": "This:C1470.name"
+						},
+						{
+							"header": {
+								"name": "Header9",
+								"text": "Nbr req"
+							},
+							"name": "Column9",
+							"footer": {
+								"name": "Footer9"
+							},
+							"dataSource": "This:C1470.requests.length",
+							"width": 112,
+							"dataSourceTypeHint": "number",
+							"numberFormat": "### ### ### ###"
+						}
+					]
+				}
+			}
 		}
 	],
-	"geometryStamp": 371,
+	"geometryStamp": 374,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",
