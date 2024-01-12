@@ -853,9 +853,69 @@
 					]
 				}
 			}
+		},
+		{
+			"objects": {
+				"lb_requests": {
+					"type": "listbox",
+					"left": 17,
+					"top": 264,
+					"width": 331,
+					"height": 683,
+					"events": [
+						"onClick",
+						"onHeaderClick",
+						"onDataChange",
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.requests",
+					"currentItemSource": "Form:C1466.host",
+					"sizingX": "fixed",
+					"sizingY": "grow",
+					"focusable": false,
+					"showFooters": false,
+					"method": "ObjectMethods/lb_requests.4dm",
+					"verticalLineStroke": "transparent",
+					"horizontalLineStroke": "transparent",
+					"alternateFill": "#F0F0F0",
+					"selectedItemsSource": "Form:C1466.requests_selected",
+					"columns": [
+						{
+							"header": {
+								"text": "Requests",
+								"name": "Header10"
+							},
+							"name": "Column10",
+							"footer": {
+								"name": "Footer10",
+								"dataSource": "",
+								"variableCalculation": "sum",
+								"dataSourceTypeHint": "number"
+							},
+							"width": 202,
+							"dataSource": "This:C1470.label"
+						},
+						{
+							"header": {
+								"name": "Header11",
+								"text": "Nbr req"
+							},
+							"name": "Column11",
+							"footer": {
+								"name": "Footer11"
+							},
+							"dataSource": "This:C1470.count",
+							"width": 112,
+							"dataSourceTypeHint": "number",
+							"numberFormat": "### ### ### ###"
+						}
+					]
+				}
+			}
 		}
 	],
-	"geometryStamp": 374,
+	"geometryStamp": 378,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",

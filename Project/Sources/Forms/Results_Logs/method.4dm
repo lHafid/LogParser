@@ -38,6 +38,41 @@ Case of
 				Form:C1466.tables:=ds:C1482.Table.all().orderByFormula($formula; dk descending:K85:32)
 				Form:C1466.metrics:=Form:C1466.main.clearMetrics()
 				
+			: (FORM Get current page:C276()=6)
+				$formula:=Formula:C1597(This:C1470.requests.length)
+				//Form.requests:=ds.Request.all().distinct("request"; dk count values).orderBy("count desc")
+				
+				$requestsNumber:=ds:C1482.Request.all().distinct("request")
+				Form:C1466.requests:=New collection:C1472()
+				
+				For ($i; 0; $requestsNumber.length-1; 1)
+					For each ($comp; ds:C1482.Component.all().distinct("name"))
+						$requests:=ds:C1482.Request.query("request == :1 and component.name == :2"; $requestsNumber[$i]; $comp)
+						//If ($requests.component.length>=2)
+						//TRACE
+						//End if 
+						
+						If ($requests.length>0)
+							$componentName:=$requests.first().component.name
+							$item:=New object:C1471()
+							$item.count:=$requests.length
+							$item.request:=$requests.first().request
+							
+							If (String:C10(Form:C1466.main.requestsLabel[$componentName+"_"+String:C10($requestsNumber[$i])])="")
+								$item.label:=$componentName+"_"+String:C10($requestsNumber[$i])
+							Else 
+								$item.label:=String:C10(Form:C1466.main.requestsLabel[$componentName+"_"+String:C10($requestsNumber[$i])])
+							End if 
+							Form:C1466.requests.push($item)
+						End if 
+					End for each 
+				End for 
+				
+				
+				Form:C1466.requests:=Form:C1466.requests.orderBy("count desc")
+				
+				Form:C1466.metrics:=Form:C1466.main.clearMetrics()
+				
 		End case 
 		
 		

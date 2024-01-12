@@ -45,6 +45,13 @@ Function getMenu()
 	$menu.page:=5
 	$menus.push($menu)
 	
+	$menu:=New object:C1471()
+	$menu.ident:="request"
+	$menu.label:="By request"
+	//$menu.fk:="UUID_Table"
+	$menu.page:=6
+	$menus.push($menu)
+	
 	return $menus
 	
 	
