@@ -114,7 +114,7 @@
 					"fontWeight": "bold",
 					"verticalAlign": "middle",
 					"scrollbarHorizontal": "hidden",
-					"scrollbarVertical": "hidden",
+					"scrollbarVertical": "automatic",
 					"hideSystemHighlight": false,
 					"method": "ObjectMethods/lb_menu.4dm",
 					"columns": [

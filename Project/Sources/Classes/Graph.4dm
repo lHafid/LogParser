@@ -721,13 +721,6 @@ Function build()->$data : Object
 			
 			$data.options.plugins.legend.position:="left"
 			
-			
-			
-			
-			
-			
-			
-			
 	End case 
 	
 	

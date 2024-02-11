@@ -135,6 +135,8 @@ If ($folder.exists)
 	build_cache("user"; $cache.cache.first.stmp; $cache.cache.last.stmp)
 	build_cache("host"; $cache.cache.first.stmp; $cache.cache.last.stmp)
 	
+	
+	
 	//$proc_global:=New process("build_cache"; 0; "global"; "global"; $terminals.first.stmp; $terminals.last.stmp)
 	//$proc_process:=New process("build_cache"; 0; "process"; "process"; $terminals.first.stmp; $terminals.last.stmp)
 	//$proc_process:=New process("build_cache"; 0; "user"; "user"; $terminals.first.stmp; $terminals.last.stmp)
@@ -149,5 +151,6 @@ End if
 
 $duration:=Milliseconds:C459-$start
 ALERT:C41(String:C10($duration))
+
 
 ALERT:C41("ok")

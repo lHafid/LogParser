@@ -48,9 +48,6 @@ Case of
 				For ($i; 0; $requestsNumber.length-1; 1)
 					For each ($comp; ds:C1482.Component.all().distinct("name"))
 						$requests:=ds:C1482.Request.query("request == :1 and component.name == :2"; $requestsNumber[$i]; $comp)
-						//If ($requests.component.length>=2)
-						//TRACE
-						//End if 
 						
 						If ($requests.length>0)
 							$componentName:=$requests.first().component.name
