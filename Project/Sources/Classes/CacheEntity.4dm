@@ -15,13 +15,13 @@ Function getGraph($type : Text; $uuids : Collection)
 	Else 
 		
 		If (False:C215)  //for V1
-			$result.datasets:=[{data: New collection:C1472().resize($result.labels.length; 0)}]
+			//$result.datasets:=[{data: New collection().resize($result.labels.length; 0)}]
 			
-			For each ($uuid; $uuids)
-				For ($i; 0; $result.datasets[0].data.length-1; 1)
-					$result.datasets[0].data[$i]+=This:C1470.graph[$temporal][$theme][$uuid][$i]
-				End for 
-			End for each 
+			//For each ($uuid; $uuids)
+			//For ($i; 0; $result.datasets[0].data.length-1; 1)
+			//$result.datasets[0].data[$i]+=This.graph[$temporal][$theme][$uuid][$i]
+			//End for 
+			//End for each 
 			
 		Else 
 			

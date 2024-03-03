@@ -2,7 +2,7 @@
 <!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
 <base name="4D logParser" uuid="24D7C1C40E394294AF1E2740D9615C35" collation_locale="en">
 	<schema name="DEFAULT_SCHEMA"/>
-	<table name="Process" uuid="D624FCDB8F5C43CC83924357CF0B0BEC" id="1">
+	<table name="Process" uuid="D624FCDB8F5C43CC83924357CF0B0BEC" id="1" prevent_journaling="true">
 		<field name="UUID" uuid="FA4C802D36384A43B2DDD9AF6B98711E" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
 		<field name="UUID_Process_Group" uuid="201D809F3DF3466FB2C7E0B714F24B15" type="10" store_as_UUID="true" id="2"/>
 		<field name="index" uuid="CEAB205123714E7791382E518AD39C59" type="5" id="3"/>
@@ -24,7 +24,7 @@
 			</editor_table_info>
 		</table_extra>
 	</table>
-	<table name="Process_Group" uuid="AE077AF177874DFFBBF530EC69CE1AD5" id="2">
+	<table name="Process_Group" uuid="AE077AF177874DFFBBF530EC69CE1AD5" id="2" prevent_journaling="true">
 		<field name="UUID" uuid="0CDB4CFFD7FE4606A7997E35CF68C23A" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
 		<field name="name" uuid="E88241DE277240BF86C8B8FECB0A2E5A" type="10" limiting_length="255" id="2"/>
 		<primary_key field_name="UUID" field_uuid="0CDB4CFFD7FE4606A7997E35CF68C23A"/>
@@ -35,7 +35,7 @@
 			</editor_table_info>
 		</table_extra>
 	</table>
-	<table name="Request" uuid="16CAB1A92735475DB451A47D8E1B7D2F" id="3">
+	<table name="Request" uuid="16CAB1A92735475DB451A47D8E1B7D2F" id="3" prevent_journaling="true">
 		<field name="UUID" uuid="51FDC2749FD64E76B75C06ACBC6458C9" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
 		<field name="sequence" uuid="22CF551DF2614207B573D43EF28E2B98" type="5" id="2"/>
 		<field name="date" uuid="6EAB5DA1723D44349FEADBFCB50B436C" type="8" id="3"/>
@@ -57,7 +57,7 @@
 			</editor_table_info>
 		</table_extra>
 	</table>
-	<table name="Host" uuid="B181BD6EA81E4676856F5C721B3BA848" id="4">
+	<table name="Host" uuid="B181BD6EA81E4676856F5C721B3BA848" id="4" prevent_journaling="true">
 		<field name="UUID" uuid="97B1713340384C0B863DCF5644237B6C" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
 		<field name="name" uuid="D7B1922DFCC449C0B2D5C85EBC4E52A6" type="10" limiting_length="255" id="2"/>
 		<primary_key field_name="UUID" field_uuid="97B1713340384C0B863DCF5644237B6C"/>
@@ -68,7 +68,7 @@
 			</editor_table_info>
 		</table_extra>
 	</table>
-	<table name="User" uuid="0982E65F89384C3297821A9BA9ECDE66" id="5">
+	<table name="User" uuid="0982E65F89384C3297821A9BA9ECDE66" id="5" prevent_journaling="true">
 		<field name="UUID" uuid="D4D9324E1ADA49E692A06B3AAA563DB8" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
 		<field name="name" uuid="4DFB0190F01D40428AAF75DA7FB3A626" type="10" limiting_length="255" id="2"/>
 		<primary_key field_name="UUID" field_uuid="D4D9324E1ADA49E692A06B3AAA563DB8"/>
@@ -79,7 +79,7 @@
 			</editor_table_info>
 		</table_extra>
 	</table>
-	<table name="Component" uuid="E8C16018E1F24514A464EF82C8B6AD35" id="6">
+	<table name="Component" uuid="E8C16018E1F24514A464EF82C8B6AD35" id="6" prevent_journaling="true">
 		<field name="UUID" uuid="CF006ADE37E745D495FCD11061C86D10" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
 		<field name="name" uuid="DFFAAEC0E35546E5BD47FA97A0DAE421" type="10" limiting_length="255" id="2"/>
 		<primary_key field_name="UUID" field_uuid="CF006ADE37E745D495FCD11061C86D10"/>
@@ -90,7 +90,7 @@
 			</editor_table_info>
 		</table_extra>
 	</table>
-	<table name="Cache" uuid="256EB499F4C9404CB8E4914F9E7FA8D5" id="7">
+	<table name="Cache" uuid="256EB499F4C9404CB8E4914F9E7FA8D5" id="7" prevent_journaling="true">
 		<field name="UUID" uuid="E78F85EAE5E14B55AFA54D4A857BE836" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
 		<field name="ident" uuid="B8E375D0ECFB46E2A8A04DE4F2126C44" type="10" limiting_length="255" id="2">
 			<field_extra multi_line="false">
@@ -108,7 +108,7 @@
 			</editor_table_info>
 		</table_extra>
 	</table>
-	<table name="Table" uuid="30AC485910AF46559AC65895FCDAAE42" id="8">
+	<table name="Table" uuid="30AC485910AF46559AC65895FCDAAE42" id="8" prevent_journaling="true">
 		<field name="UUID" uuid="9FA1744DA6934081819B15E19F01E96F" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
 		<field name="name" uuid="2D81809C25154C70AE1646CE9B5A80AF" type="10" limiting_length="255" id="2"/>
 		<primary_key field_name="UUID" field_uuid="9FA1744DA6934081819B15E19F01E96F"/>
@@ -221,6 +221,11 @@
 			</editor_relation_info>
 		</relation_extra>
 	</relation>
+	<index kind="regular" unique_keys="true" uuid="199805E5EFC541BE8829518403EA724A" type="1">
+		<field_ref uuid="97B1713340384C0B863DCF5644237B6C" name="UUID">
+			<table_ref uuid="B181BD6EA81E4676856F5C721B3BA848" name="Host"/>
+		</field_ref>
+	</index>
 	<index kind="regular" uuid="1A9A10DC86214084BF8145519B286A50" type="1">
 		<field_ref uuid="CEAB205123714E7791382E518AD39C59" name="index">
 			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
@@ -347,11 +352,6 @@
 	<index kind="regular" uuid="F8566C3616B740D390083E7E5821BCCF" type="3">
 		<field_ref uuid="23DCF6B10F1144DABCDA792DB0D2E8FC" name="UUID_User">
 			<table_ref uuid="D624FCDB8F5C43CC83924357CF0B0BEC" name="Process"/>
-		</field_ref>
-	</index>
-	<index kind="regular" unique_keys="true" uuid="FA30B4B179F046D4AA955E0DEC175CB5" type="1">
-		<field_ref uuid="97B1713340384C0B863DCF5644237B6C" name="UUID">
-			<table_ref uuid="B181BD6EA81E4676856F5C721B3BA848" name="Host"/>
 		</field_ref>
 	</index>
 	<base_extra>

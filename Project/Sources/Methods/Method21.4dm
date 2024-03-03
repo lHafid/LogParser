@@ -20,3 +20,5 @@ While ($startTime<$endTime)
 End while 
 $end:=Milliseconds:C459-$start
 SET TEXT TO PASTEBOARD:C523(String:C10($end))
+
+
