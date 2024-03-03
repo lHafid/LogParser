@@ -40,10 +40,6 @@ For each ($file; $files)
 							$UUID_Process:=$e_process.UUID
 						End if 
 						
-						If (Num:C11($columns[0])=1139401)
-							TRACE:C157
-						End if 
-						
 						$e_request:=ds:C1482.Request.new()
 						$e_request.sequence:=Num:C11($columns[0])
 						$dataTime:=Split string:C1554($columns[1]; ","; sk ignore empty strings:K86:1+sk trim spaces:K86:2)
